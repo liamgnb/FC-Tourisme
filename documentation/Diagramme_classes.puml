@@ -1,0 +1,37 @@
+@startuml
+skinparam classAttributeIconSize 0
+
+class Etablissement {
+    - id : int
+    - nom : string
+    - slug : string
+    - description : text
+    - telephone : string
+    - adresse : string
+    - email : string
+    - image : string
+    - actif : bool
+    - accueil : bool
+    - createdAt : date
+    - updateAt : date
+}
+
+class Ville {
+    - id : int
+    - nom : string
+    - cp : string
+    - lib_departement : string
+    - num_departement : int
+    - lib_region : string
+}
+
+class Categorie {
+    - id : int
+    - nom : string
+    - createdAt : date
+}
+
+Etablissement "0..*" -- "1..*" Categorie
+Etablissement "0..*" -- "1..1" Ville
+
+@enduml
