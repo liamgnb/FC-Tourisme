@@ -42,13 +42,18 @@ class ImportVilleFrancheComte extends Command
         $progressBar->start();
 
         foreach ($records as $offset => $record) {
-            if ($record['Département'] == 25 || $record['Département'] == 39 || $record['Département'] == 70 || $record['Département'] == 90) {
+            if (in_array($record['Département'], [25, 39, 70, 90])) {
                 $ville = new Ville();
-                $ville->setNom($record['Commune'])
+                $ville
                     ->setCp($record['Code postal'])
                     ->setNumDepartement($record['Département'])
                     ->setLibDepartement($record['Nom département'])
                     ->setLibRegion($record['Région']);
+                if($record['Ancienne commune']){
+                    $ville->setNom(implode(" - ", [$record['Commune'], $record['Ancienne commune']]));
+                } else {
+                    $ville->setNom($record['Commune']);
+                }
                 $this->villeRepository->save($ville, true);
             }
             $progressBar->advance();
