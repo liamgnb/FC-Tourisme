@@ -55,7 +55,7 @@ class ImportVilleFrancheComte extends Command
         }
         $progressBar->finish();
         $output->writeln('');
-        $output->writeln('<info>Villes ajouter avec succes.</info>');
+        $output->writeln('<info>Villes ajouté avec succes.</info>');
         return Command::SUCCESS;
     }
 }

@@ -9,5 +9,5 @@ symfony console d:m:m
 symfony console app:import-villes-franche-comte
 ```
 ```shell
-symfony console d:f:l
+symfony console d:f:l --purge-exclusions=ville
 ```

@@ -25,7 +25,7 @@ class Etablissement
     #[ORM\Column(type: Types::TEXT)]
     private ?string $description = null;
 
-    #[ORM\Column(length: 10)]
+    #[ORM\Column(length: 20)]
     private ?string $telephone = null;
 
     #[ORM\Column(length: 255)]
