@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {% if etablissement is not null %}
+        {{ etablissement.nom }}
+    {% else %}
+        Aucun résultat.
+    {% endif %}
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+        {% if etablissement is null %}
+            <div class="alert alert-warning text-center" role="alert">
+                Aucun établissement n'a été trouvé.
+                <a href="{{ path('app_home') }}">
+                    <span class="badge text-bg-secondary text-dark">Retour à l'acceuil.</span>
+                </a>
+            </div>
+        {% else %}
+            <div class="card text-center">
+                {% if etablissement.image is not null %}
+                    <img src="..." class="card-img-top" alt="...">
+                {% endif %}
+                <div class="card-header text-primary">
+                    <h1>{{ etablissement.nom }}</h1>
+                </div>
+                <div class="card-body">
+                    <div class="d-flex justify-content-center flex-wrap mb-3">
+                        {% for categorie in etablissement.categorie %}
+                            <div>
+                                <span class="badge rounded-pill text-bg-info me-3 text-black fs-6">{{ categorie.nom }}</span>
+                            </div>
+                        {% endfor %}
+                    </div>
+                    <p class="card-text">{{ etablissement.description }}</p>
+                </div>
+                <div class="card-body">
+                    <div class="d-flex justify-content-center text-light">
+                        <span class="me-2">
+                            {{ etablissement.telephone }}
+                        </span>
+                        <span>{{ etablissement.email }}</span>
+                    </div>
+                </div>
+                <div class="card-footer text-muted">
+                    <div class="d-flex justify-content-center text-light">
+                        <span class="me-2">{{ etablissement.adresse }}</span>
+                        <span class="me-2">{{ etablissement.ville.nom }}</span>
+                        <span>{{ etablissement.ville.cp | number_format(0, '', ' ')}}</span>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}

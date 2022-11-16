@@ -22,9 +22,8 @@ class EtablissementsController extends AbstractController
     }
 
     #[Route('/etablissements', name: 'app_etablissements')]
-    public function index(PaginatorInterface $paginator, Request $request): Response
+    public function all(PaginatorInterface $paginator, Request $request): Response
     {
-
         // Mise en place de la pagination
         $etablissements = $paginator->paginate(
             $this->etablissementRepository->findBy(['actif' => '1'], ['nom' => 'ASC']),
@@ -36,4 +35,15 @@ class EtablissementsController extends AbstractController
             'etablissements' => $etablissements,
         ]);
     }
+
+    #[Route('/etablissements/{slug}', name: 'app_etablissements_slug')]
+    public function detail($slug): Response
+    {
+        $etablissement = $this->etablissementRepository->findOneBy(['actif' => '1', 'slug' => $slug]);
+
+        return $this->render('etablissements/detail.html.twig', [
+            'etablissement' => $etablissement,
+        ]);
+    }
+
 }
