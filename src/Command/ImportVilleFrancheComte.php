@@ -30,8 +30,7 @@ class ImportVilleFrancheComte extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-
-
+        // Récupération du fichier CSV
         $reader = Reader::createFromPath('./src/csv/villes.csv', 'r');
         $reader->setHeaderOffset(0);
         $reader->setDelimiter(';');
@@ -49,8 +48,10 @@ class ImportVilleFrancheComte extends Command
                     ->setNumDepartement($record['Département'])
                     ->setLibDepartement($record['Nom département'])
                     ->setLibRegion($record['Région']);
+
+                // Vérification si la ville possède le nom d'une autre, pour éviter les doublons
                 if($record['Ancienne commune']){
-                    $ville->setNom(implode(" - ", [$record['Commune'], $record['Ancienne commune']]));
+                    $ville->setNom($record['Commune']." - ".$record['Ancienne commune']);
                 } else {
                     $ville->setNom($record['Commune']);
                 }
@@ -58,6 +59,8 @@ class ImportVilleFrancheComte extends Command
             }
             $progressBar->advance();
         }
+
+        // Affichage Progress Bar et message de fin
         $progressBar->finish();
         $output->writeln('');
         $output->writeln('<info>Villes ajouté avec succes.</info>');

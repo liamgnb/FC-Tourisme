@@ -28,9 +28,13 @@ class EtablissementFixtures extends Fixture implements DependentFixtureInterface
 
     public function load(ObjectManager $manager): void
     {
+        // Utilisation de faker
         $faker = Factory::create("fr_FR");
+
+        // Récupérations des villes depuis la BDD
         $villes = $this->villeRepository->findAll();
 
+        // Création de 500 établissements
         for ($i=0; $i<500; $i++) {
             $etablissement = new Etablissement();
             $etablissement
