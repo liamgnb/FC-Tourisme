@@ -30,6 +30,8 @@ class ImportVilleFrancheComte extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
+        // TODO : vidé avant la table.
+
         // Récupération du fichier CSV
         $reader = Reader::createFromPath('./src/csv/villes.csv', 'r');
         $reader->setHeaderOffset(0);

@@ -23,7 +23,7 @@
                             </div>
                         </h5>
                         <p class="card-text text-light">{{ etablissement.description | slice(0, 74)}}</p>
-
+                        {# TODO : Mettre '...' #}
                         <div class="d-flex justify-content-start flex-wrap">
                             {% for categorie in etablissement.categorie %}
                                 <div>
