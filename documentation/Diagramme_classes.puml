@@ -31,6 +31,19 @@ class Categorie {
     - createdAt : date
 }
 
+class Utilisateur {
+    - id : int
+    - prenom : string
+    - nom : string
+    - pseudo : string
+    - email: string
+    - mdp : string
+    - createdAt : date
+    - updateAt : date
+    - roles : array
+    - actif : bool
+}
+
 Etablissement "0..*" -- "1..*" Categorie
 Etablissement "0..*" -- "1..1" Ville
 
