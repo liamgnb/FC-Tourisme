@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Connexion{% endblock %}
+
+{% block body %}
+    <div class="text-center mt-5">
+        <main class="form-signin w-25 m-auto">
+            <form  action="{{ path('app_login') }}" method="post">
+                <h1 class="h1 mb-3 fw-normal">Connexion</h1>
+
+                <div class="form-floating mb-2">
+                    <input type="text" class="form-control" id="floatingInput" placeholder="username" name="_username" value="{{ last_username }}">
+                    <label for="floatingInput">Email</label>
+                </div>
+                <div class="form-floating mb-1">
+                    <input type="password" class="form-control" id="floatingPassword" placeholder="password" name="_password">
+                    <label for="floatingPassword">Mot de passe</label>
+                </div>
+
+                {# If you want to control the URL the user is redirected to on success
+                <input type="hidden" name="_target_path" value="/account"> #}
+
+                {% if error %}
+                    <div class="alert alert-danger rounded rounded-5 w-75 mx-auto mt-2" role="alert">
+                        <div class="text-center">
+                            {{ error.messageKey|trans(error.messageData, 'security') }}
+                        </div>
+                    </div>
+                {% endif %}
+
+                <button class="w-100 btn btn-lg btn-primary mt-3" type="submit">Connexion</button>
+            </form>
+        </main>
+    </div>
+{% endblock %}

@@ -34,7 +34,7 @@ class UserFixtures extends Fixture
                 ->setPrenom($faker->lastName)
                 ->setNom($faker->firstName)
                 ->setEmail($faker->email)
-                ->setCreatedAt(new \DateTime())
+                ->setCreatedAt($faker->dateTimeBetween('-6 month'))
                 ->setActif($faker->boolean(90))
                 ->setRoles([$this->roles[$faker->numberBetween(0,2)]]);
 
@@ -43,7 +43,7 @@ class UserFixtures extends Fixture
             // AJOUTER MOT DE PASSE
             $hashedPassword = $this->passwordHasher->hashPassword(
                 $user,
-                $faker->password
+                "secret"
             );
             $user->setPassword($hashedPassword);
 
