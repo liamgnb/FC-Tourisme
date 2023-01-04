@@ -28,6 +28,8 @@
                     </div>
                 {% endif %}
 
+                <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+
                 <button class="w-100 btn btn-lg btn-primary mt-3" type="submit">Connexion</button>
             </form>
         </main>

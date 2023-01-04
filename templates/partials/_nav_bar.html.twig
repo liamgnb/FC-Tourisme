@@ -21,6 +21,8 @@
                             {{ app.user.nom|upper }} {{ app.user.prenom|capitalize }}
                         </button>
                         <ul class="dropdown-menu dropdown-menu-dark">
+                            <li><a class="dropdown-item" href="{{ path('app_favoris') }}">Favori(s)</a></li>
+                            <li><hr></li>
                             <li><a class="dropdown-item" href="{{ path('app_logout') }}">Déconnexion</a></li>
                         </ul>
                     </li>

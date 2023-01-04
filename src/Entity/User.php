@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
@@ -51,6 +53,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column]
     private ?bool $actif = null;
+
+    #[ORM\ManyToMany(targetEntity: Etablissement::class, inversedBy: 'users')]
+    private Collection $etablissements;
+
+    public function __construct()
+    {
+        $this->etablissements = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -190,6 +200,30 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setActif(bool $actif): self
     {
         $this->actif = $actif;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, etablissement>
+     */
+    public function getEtablissements(): Collection
+    {
+        return $this->etablissements;
+    }
+
+    public function addEtablissement(Etablissement $etablissement): self
+    {
+        if (!$this->etablissements->contains($etablissement)) {
+            $this->etablissements->add($etablissement);
+        }
+
+        return $this;
+    }
+
+    public function removeEtablissement(Etablissement $etablissement): self
+    {
+        $this->etablissements->removeElement($etablissement);
 
         return $this;
     }
