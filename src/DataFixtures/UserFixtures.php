@@ -33,10 +33,10 @@ class UserFixtures extends Fixture
             $user
                 ->setPrenom($faker->lastName)
                 ->setNom($faker->firstName)
-                ->setEmail($faker->email)
                 ->setCreatedAt($faker->dateTimeBetween('-6 month'))
                 ->setActif($faker->boolean(90))
                 ->setRoles([$this->roles[$faker->numberBetween(0,2)]]);
+            $user->setEmail(strtolower($user->getNom()).".".strtolower($user->getPrenom())."@test.com");
 
             if($faker->boolean(60)) $user->setPseudo($faker->userName);
             
