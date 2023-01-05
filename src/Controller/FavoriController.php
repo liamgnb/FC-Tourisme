@@ -36,7 +36,7 @@ class FavoriController extends AbstractController
             ]);
         }
 
-        return $this->render('favori/index.html.twig');
+        return $this->redirectToRoute('app_home');
 
     }
 }
