@@ -21,6 +21,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?int $id = null;
 
     #[ORM\Column(length: 180, unique: true)]
+    #[Assert\NotNull]
+    #[Assert\Unique]
     private ?string $email = null;
 
     #[ORM\Column]
@@ -35,10 +37,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(length: 70)]
     #[Assert\Length(min: 2, max: 60)]
+    #[Assert\NotNull]
     private ?string $prenom = null;
 
     #[ORM\Column(length: 70)]
     #[Assert\Length(min: 2, max: 60)]
+    #[Assert\NotNull]
     private ?string $nom = null;
 
     #[ORM\Column(length: 70, nullable: true)]

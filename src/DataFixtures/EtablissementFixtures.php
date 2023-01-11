@@ -38,9 +38,9 @@ class EtablissementFixtures extends Fixture implements DependentFixtureInterface
         for ($i=0; $i<500; $i++) {
             $etablissement = new Etablissement();
             $etablissement
-                ->setNom($faker->company())
+                ->setNom($faker->words($faker->numberBetween(3,5), true))
                 ->setSlug($this->slugger->slug($etablissement->getNom())->lower())
-                ->setDescription($faker->paragraph)
+                ->setDescription($faker->paragraphs($faker->numberBetween(2,4), true))
                 ->setTelephone($faker->e164PhoneNumber)
                 ->setAdresse($faker->streetAddress)
                 ->setEmail($faker->email())

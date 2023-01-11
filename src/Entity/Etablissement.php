@@ -19,33 +19,42 @@ class Etablissement
 
     #[ORM\Column(length: 150)]
     #[Assert\Length(min: 5)]
+    #[Assert\NotNull]
     private ?string $nom = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\Unique]
+    #[Assert\NotNull]
     private ?string $slug = null;
 
     #[ORM\Column(type: Types::TEXT)]
     private ?string $description = null;
 
     #[ORM\Column(length: 20)]
+    #[Assert\NotNull]
     private ?string $telephone = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotNull]
     private ?string $adresse = null;
 
     #[ORM\Column(length: 150)]
+    #[Assert\NotNull]
     private ?string $email = null;
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $image = null;
 
     #[ORM\Column]
+    #[Assert\NotNull]
     private ?bool $actif = null;
 
     #[ORM\Column]
+    #[Assert\NotNull]
     private ?bool $accueil = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    #[Assert\NotNull]
     private ?\DateTimeInterface $createdAt = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
@@ -53,9 +62,11 @@ class Etablissement
 
     #[ORM\ManyToOne(inversedBy: 'etablissements')]
     #[ORM\JoinColumn(nullable: false)]
+    #[Assert\NotNull]
     private ?Ville $ville = null;
 
     #[ORM\ManyToMany(targetEntity: Categorie::class, inversedBy: 'etablissements')]
+    #[Assert\NotNull]
     private Collection $categorie;
 
     #[ORM\ManyToMany(targetEntity: User::class, mappedBy: 'etablissements')]

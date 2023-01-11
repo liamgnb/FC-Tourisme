@@ -50,23 +50,4 @@ class EtablissementsController extends AbstractController
         ]);
     }
 
-    #[Route('/etablissements/favori/add/{slug}', name: 'app_etablissements_favori_add')]
-    public function favoriAdd($slug): Response
-    {
-        $etablissement = $this->etablissementRepository->findOneBy(['actif' => '1', 'slug' => $slug]);
-        $user = $this->getUser();
-
-        if($user && !$user->getEtablissements()->contains($etablissement)){
-            $user->addEtablissement($etablissement);
-            $this->userRepository->save($user, true);
-        } elseif ($user && $user->getEtablissements()->contains($etablissement)) {
-            $user->removeEtablissement($etablissement);
-            $this->userRepository->save($user, true);
-        }
-
-        return $this->render('etablissements/detail.html.twig', [
-            'etablissement' => $etablissement,
-        ]);
-    }
-
 }
