@@ -47,7 +47,8 @@ class EtablissementFixtures extends Fixture implements DependentFixtureInterface
                 ->setActif($faker->boolean(90))
                 ->setAccueil($faker->boolean(5))
                 ->setCreatedAt(new \DateTime())
-                ->setVille($villes[$faker->numberBetween(0,count($villes)-1)]);
+                ->setVille($villes[$faker->numberBetween(0,count($villes)-1)])
+                ->setImage("https://fakeimg.pl/500x200/?text=".$etablissement->getNom()."&font=lobster");
 
             // Ajout d'une ou plusieu catégorie (max 3)
             $nbrCategorie = $faker->numberBetween(1,3);

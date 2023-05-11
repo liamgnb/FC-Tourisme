@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Repository\CategorieRepository;
 use App\Repository\EtablissementRepository;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -15,18 +16,20 @@ class FavoriController extends AbstractController
 {
     private EtablissementRepository $etablissementRepository;
     private EntityManagerInterface $entityManager;
+    private CategorieRepository $categorieRepository;
 
     /**
      * @param EtablissementRepository $etablissementRepository
-     * @param UserRepository $userRepository
      * @param EntityManagerInterface $entityManager
+     * @param CategorieRepository $categorieRepository
      */
-    public function __construct(EtablissementRepository $etablissementRepository, UserRepository $userRepository, EntityManagerInterface $entityManager)
+    public function __construct(EtablissementRepository $etablissementRepository, EntityManagerInterface $entityManager, CategorieRepository $categorieRepository)
     {
         $this->etablissementRepository = $etablissementRepository;
-        $this->userRepository = $userRepository;
         $this->entityManager = $entityManager;
+        $this->categorieRepository = $categorieRepository;
     }
+
 
     #[Route('/favoris', name: 'app_favoris')]
     public function index(PaginatorInterface $paginator, Request $request): Response
@@ -51,6 +54,7 @@ class FavoriController extends AbstractController
 
             return $this->render('favori/index.html.twig', [
                 'etablissements' => $etablissements,
+                'categories' => $this->categorieRepository->findAll(),
             ]);
         }
 
@@ -80,13 +84,14 @@ class FavoriController extends AbstractController
             case 'app_etablissements_slug':
                 return $this->render('etablissements/detail.html.twig', [
                     'etablissement' => $etablissement,
+                    'categories' => $this->categorieRepository->findAll(),
                 ]);
 
             case 'app_favoris':
                 return $this->redirectToRoute('app_favoris');
 
             default :
-                return $this->redirect('/'.$route);
+                return $this->redirect('/'.str_replace('_*_', '/', $route));
         }
 
     }

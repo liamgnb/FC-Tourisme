@@ -56,6 +56,13 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         $this->save($user, true);
     }
 
+    public function removeAll() : void
+    {
+        foreach ($this->findAll() as $user){
+            $this->remove($user);
+        }
+    }
+
 //    /**
 //     * @return User[] Returns an array of User objects
 //     */

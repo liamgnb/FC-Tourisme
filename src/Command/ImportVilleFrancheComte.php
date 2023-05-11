@@ -3,6 +3,7 @@
 namespace App\Command;
 
 use App\Entity\Ville;
+use App\Repository\EtablissementRepository;
 use App\Repository\VilleRepository;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
@@ -17,13 +18,15 @@ class ImportVilleFrancheComte extends Command
 {
     protected static $defaultDescription = 'Importation des villes de franche comte.';
     private VilleRepository $villeRepository;
+    private EtablissementRepository $etablissementRepository;
 
     /**
      * @param VilleRepository $villeRepository
      */
-    public function __construct(VilleRepository $villeRepository)
+    public function __construct(VilleRepository $villeRepository, EtablissementRepository $etablissementRepository)
     {
         $this->villeRepository = $villeRepository;
+        $this->etablissementRepository = $etablissementRepository;
         parent::__construct();
     }
 
@@ -31,6 +34,11 @@ class ImportVilleFrancheComte extends Command
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         // TODO : vidé avant la table.
+        $output->writeln('<info>Suppression de la base de données (etablissements, villes).</info>');
+        $this->etablissementRepository->removeAll();
+        $this->villeRepository->removeAll();
+        $output->writeln('');
+        $output->writeln('<info>Ajout des villes...</info>');
 
         // Récupération du fichier CSV
         $reader = Reader::createFromPath('./src/csv/villes.csv', 'r');
@@ -65,7 +73,7 @@ class ImportVilleFrancheComte extends Command
         // Affichage Progress Bar et message de fin
         $progressBar->finish();
         $output->writeln('');
-        $output->writeln('<info>Villes ajouté avec succes.</info>');
+        $output->writeln('<info>Villes ajouté avec succes. Utiliser la commande : symfony console d:f:l --purge-exclusions=ville</info>');
         return Command::SUCCESS;
     }
 }

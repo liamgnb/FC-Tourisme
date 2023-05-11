@@ -39,6 +39,13 @@ class CategorieRepository extends ServiceEntityRepository
         }
     }
 
+    public function removeAll() : void
+    {
+        foreach ($this->findAll() as $categorie){
+            $this->remove($categorie);
+        }
+    }
+
 //    /**
 //     * @return Categorie[] Returns an array of Categorie objects
 //     */

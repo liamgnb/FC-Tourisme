@@ -25,6 +25,9 @@ class Categorie
     #[ORM\ManyToMany(targetEntity: Etablissement::class, mappedBy: 'categorie')]
     private Collection $etablissements;
 
+    #[ORM\Column(length: 255)]
+    private ?string $slug = null;
+
     public function __construct()
     {
         $this->etablissements = new ArrayCollection();
@@ -82,6 +85,18 @@ class Categorie
         if ($this->etablissements->removeElement($etablissement)) {
             $etablissement->removeCategorie($this);
         }
+
+        return $this;
+    }
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(string $slug): self
+    {
+        $this->slug = $slug;
 
         return $this;
     }

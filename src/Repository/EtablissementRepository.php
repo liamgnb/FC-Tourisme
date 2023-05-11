@@ -39,6 +39,13 @@ class EtablissementRepository extends ServiceEntityRepository
         }
     }
 
+    public function removeAll() : void
+    {
+        foreach ($this->findAll() as $etablissement){
+            $this->remove($etablissement);
+        }
+    }
+
 //    /**
 //     * @return Etablissement[] Returns an array of Etablissement objects
 //     */

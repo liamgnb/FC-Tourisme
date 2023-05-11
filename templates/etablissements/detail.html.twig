@@ -50,6 +50,9 @@
                         {% endif %}
                     </div>
                 </div>
+                {% if etablissement.image is not null %}
+                    <img src="{{ etablissement.image }}" alt="Image_{{ etablissement.nom }}" class="w-75 mx-auto">
+                {% endif %}
                 <div class="card-body">
                     <div class="d-flex justify-content-center flex-wrap mb-3">
                         {% for categorie in etablissement.categorie %}

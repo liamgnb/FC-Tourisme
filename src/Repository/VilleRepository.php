@@ -39,6 +39,13 @@ class VilleRepository extends ServiceEntityRepository
         }
     }
 
+    public function removeAll() : void
+    {
+        foreach ($this->findAll() as $ville){
+            $this->remove($ville);
+        }
+    }
+
 //    /**
 //     * @return Ville[] Returns an array of Ville objects
 //     */

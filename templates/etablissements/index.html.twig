@@ -7,7 +7,7 @@
     <div class="container">
         <div class="row row-cols-3 justify-content-center">
             {% for etablissement in etablissements %}
-                {% set path = path('app_favoris_add', {slug: etablissement.slug, route: app.request.requesturi|slice(1)})%}
+                {% set path = path('app_favoris_add', {slug: etablissement.slug, route: app.request.requesturi|slice(1)|replace({'/' : '_*_'})})%}
                 {{ include('partials/_card_etablissement.html.twig') }}
             {% endfor %}
         </div>

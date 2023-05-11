@@ -39,6 +39,13 @@ class UtilisateurRepository extends ServiceEntityRepository
         }
     }
 
+    public function removeAll() : void
+    {
+        foreach ($this->findAll() as $user){
+            $this->remove($user);
+        }
+    }
+
 //    /**
 //     * @return Utilisateur[] Returns an array of Utilisateur objects
 //     */
