@@ -5,6 +5,11 @@ namespace App\Repository;
 use App\Entity\Etablissement;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use phpDocumentor\Reflection\Types\Collection;
+use Symfony\Component\Serializer\Encoder\JsonEncoder;
+use Symfony\Component\Serializer\Encoder\XmlEncoder;
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+use Symfony\Component\Serializer\Serializer;
 
 /**
  * @extends ServiceEntityRepository<Etablissement>
@@ -44,6 +49,33 @@ class EtablissementRepository extends ServiceEntityRepository
         foreach ($this->findAll() as $etablissement){
             $this->remove($etablissement);
         }
+    }
+
+    public function getFavoris()
+    {
+        $conn = $this->getEntityManager()->getConnection();
+
+        $sql = '
+            SELECT e.*, count(e.id) as nbr
+            FROM etablissement AS e
+            INNER JOIN user_etablissement AS ue ON e.id = ue.etablissement_id
+            GROUP BY e.id
+            ORDER BY nbr DESC;
+            ';
+        $stmt = $conn->prepare($sql);
+        $etablissementsArray = $stmt->executeQuery()->fetchAllAssociative();
+
+        $encoders = [new XmlEncoder(), new JsonEncoder()];
+        $normalizers = [new ObjectNormalizer()];
+        $serializer = new Serializer($normalizers, $encoders);
+
+        $etablissements = [];
+        foreach ($etablissementsArray as $etablissementArray) {
+            $etablissementArray['created_at'] = new \DateTime($etablissementArray['created_at']);
+            $etablissements[] = $serializer->denormalize($etablissementArray, Etablissement::class);
+        }
+
+        return $etablissements;
     }
 
 //    /**

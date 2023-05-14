@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Inscription{% endblock %}
+
+{% block body %}
+    <div class="text-center mt-5">
+        <main class="form-signin w-25 m-auto">
+            {{ form_start(form) }}
+                <h1 class="h1 mb-3 fw-normal">Inscription</h1>
+
+                <div class="form-floating mb-2">
+                    <input type="text" class="form-control" id="prenom" placeholder="Prénom" name="{{ field_name(form.prenom) }}" value="{{ field_value(form.prenom) }}" required>
+                    <label for="prenom">Prénom</label>
+                    {{ form_errors(form.prenom) }}
+                </div>
+                <div class="form-floating mb-2">
+                    <input type="text" class="form-control" id="nom" placeholder="Nom" name="{{ field_name(form.nom) }}" value="{{ field_value(form.nom) }}" required>
+                    <label for="nom">Nom</label>
+                    {{ form_errors(form.nom) }}
+                </div>
+                <div class="form-floating mb-2">
+                    <input type="text" class="form-control" id="pseudo" placeholder="Pseudo" name="{{ field_name(form.pseudo) }}" value="{{ field_value(form.pseudo) }}">
+                    <label for="pseudo">Pseudo</label>
+                    {{ form_errors(form.pseudo) }}
+                </div>
+                <div class="form-floating mb-2">
+                    <input type="email" class="form-control" id="email" placeholder="Email" name="{{ field_name(form.email) }}" value="{{ field_value(form.email) }}" required>
+                    <label for="email">Email</label>
+                    {{ form_errors(form.email) }}
+                </div>
+            <div class="form-floating mb-2">
+                <input type="password" class="form-control" id="password1" placeholder="Mot de passe" name="{{ field_name(form.password.first) }}" value="{{ field_value(form.password.first) }}" required>
+                <label for="password1">Mot de passe</label>
+                {{ form_errors(form.password.first) }}
+            </div>
+            <div class="form-floating mb-2">
+                <input type="password" class="form-control" id="password2" placeholder="Mot de passe" name="{{ field_name(form.password.second) }}" value="{{ field_value(form.password.second) }}" required>
+                <label for="password2">Mot de passe</label>
+                {{ form_errors(form.password.second) }}
+            </div>
+
+            <button class="w-100 btn btn-lg btn-primary mt-3" type="submit">Inscription</button>
+            {{ form_end(form) }}
+        </main>
+    </div>
+{% endblock %}

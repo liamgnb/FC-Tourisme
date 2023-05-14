@@ -5,6 +5,13 @@
 {% block body %}
     <div class="text-center mt-5">
         <main class="form-signin w-25 m-auto">
+            {% if inscription is defined and inscription == 'true' %}
+                <div class="alert alert-success rounded rounded-5 w-75 mx-auto mb-2" role="alert">
+                    <div class="text-center">
+                       Inscription réalisé avec succes.
+                    </div>
+                </div>
+            {% endif %}
             <form  action="{{ path('app_login') }}" method="post">
                 <h1 class="h1 mb-3 fw-normal">Connexion</h1>
 

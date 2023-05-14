@@ -1,6 +1,9 @@
 <nav class="navbar navbar-expand-lg bg-black navbar-dark mb-4">
     <div class="container">
-        <a class="navbar-brand" href="{{ path('app_home') }}">FC-Tourisme</a>
+        <a class="navbar-brand" href="{{ path('app_home') }}">
+            <img src="{{ asset('img/logo.ico') }}" alt="Logo FC-Tourisme" width="40rem" class="me-2">
+            FC-Tourisme
+        </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggler" aria-controls="navbarToggler" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -16,7 +19,7 @@
                         </a>
                         <ul class="dropdown-menu">
                             {% for categorie in categories %}
-                                <li><a class="dropdown-item" href="{{ path('app_categorie_slug', {slug: categorie.slug }) }}">{{ categorie.nom|capitalize}}</a></li>
+                                <li><a class="dropdown-item" href="{{ path('app_categorie_slug', {slug: categorie.slug }) }}">{{ categorie.nom|capitalize}} - {{ categorie.etablissements.count}}</a></li>
                             {% endfor %}
                         </ul>
                     </li>
@@ -24,7 +27,7 @@
                 {% if app.user is null %}
                     <li class="nav-item">
                         <a class="btn btn-outline-success" href="{{ path('app_login') }}">Connexion</a>
-                        <a class="ms-2 btn btn-outline-primary" href="">Inscription</a>
+                        <a class="ms-2 btn btn-outline-primary" href="{{ path('app_inscription') }}">Inscription</a>
                     </li>
                 {% else %}
                     <li class="nav-item dropdown">
