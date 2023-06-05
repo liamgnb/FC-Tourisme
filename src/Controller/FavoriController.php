@@ -82,10 +82,7 @@ class FavoriController extends AbstractController
 
         switch ($route) {
             case 'app_etablissements_slug':
-                return $this->render('etablissements/detail.html.twig', [
-                    'etablissement' => $etablissement,
-                    'categories' => $this->categorieRepository->findAll(),
-                ]);
+                return $this->redirectToRoute('app_etablissements_slug', ['slug' => $slug]);
 
             case 'app_favoris':
                 return $this->redirectToRoute('app_favoris');
