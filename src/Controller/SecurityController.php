@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Repository\CategorieRepository;
 use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
@@ -21,6 +22,16 @@ use Symfony\Component\Validator\Constraints\Unique;
 
 class SecurityController extends AbstractController
 {
+    private CategorieRepository $categorieRepository;
+
+    /**
+     * @param CategorieRepository $categorieRepository
+     */
+    public function __construct(CategorieRepository $categorieRepository)
+    {
+        $this->categorieRepository = $categorieRepository;
+    }
+
     #[Route('/login', name: 'app_login')]
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
@@ -38,6 +49,7 @@ class SecurityController extends AbstractController
         return $this->render('security/index.html.twig', [
             'last_username' => $lastUsername,
             'error'         => $error,
+            'categories'    => $this->categorieRepository->findAll(),
         ]);
     }
 
@@ -75,12 +87,14 @@ class SecurityController extends AbstractController
             return $this->render('security/index.html.twig', [
                 'inscription' => 'true',
                 'last_username' => $user->getEmail(),
-                'error' => null
+                'error' => null,
+                'categories'    => $this->categorieRepository->findAll(),
             ]);
         }
 
         return $this->renderForm('security/inscription.html.twig', [
             'form' => $form,
+            'categories'    => $this->categorieRepository->findAll(),
         ]);
 
     }
